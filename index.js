@@ -1,5 +1,6 @@
 var TIMEOUT_IN_SECS = 3 * 60
 var TEMPLATE = '<h1><span class="js-timer-minutes">00</span>:<span class="js-timer-seconds">00</span></h1>'
+var STYLES = "height: auto; position: fixed; top: 25px; left: 25px; z-index: 1; border: solid black 1px; color: red; background-color: azure;"
 
 function padZero(number){
   return ("00" + String(number)).slice(-2);
@@ -53,7 +54,7 @@ class TimerWidget{
     // adds HTML tag to current page
     this.timerContainer = document.createElement('div')
 
-    this.timerContainer.setAttribute("style", "height: 100px;")
+    this.timerContainer.setAttribute("style", STYLES)
     this.timerContainer.innerHTML = TEMPLATE
 
     rootTag.insertBefore(this.timerContainer, rootTag.firstChild)
