@@ -2,6 +2,13 @@ var TIMEOUT_IN_SECS = 3 * 60
 var TEMPLATE = '<h1><span class="js-timer-minutes">00</span>:<span class="js-timer-seconds">00</span></h1>'
 var STYLES = "height: auto; position: fixed; top: 25px; left: 25px; z-index: 1; border: solid black 1px; color: red; background-color: azure;"
 
+var QUOTES = [
+  "Success is no accident. It is hard work, perseverance, learning, studying, sacrifice and most of all, love of what you are doing or learning to do.",
+  "A dream doesn't become reality through magic; it takes sweat, determination and hard work.",
+  "Work like you don't need the money. Love like you've never been hurt. Dance like nobody's watching.",
+  "Success isn't always about greatness. It's about consistency. Consistent hard work leads to success. Greatness will come."
+]
+
 function padZero(number){
   return ("00" + String(number)).slice(-2);
 }
@@ -83,12 +90,18 @@ function main(){
   var timer = new Timer(TIMEOUT_IN_SECS)
   var timerWiget = new TimerWidget()
   var intervalId = null
+  var stopClockEvent = new Event("stopclock")
+  var isStopClockFired = false
 
   timerWiget.mount(document.body)
 
   function handleIntervalTick(){
     var secsLeft = timer.calculateSecsLeft()
     timerWiget.update(secsLeft)
+    if (secsLeft === 0 && !isStopClockFired) {
+      document.dispatchEvent(stopClockEvent)
+      isStopClockFired = true
+    }
   }
 
   function handleVisibilityChange(){
@@ -102,8 +115,16 @@ function main(){
     }
   }
 
+function alertUser(){
+  setInterval(function() {
+    var randomQuote = QUOTES[Math.floor(Math.random()*QUOTES.length)]
+    window.alert(randomQuote)
+  }, 5000)
+}
+
   // https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
   document.addEventListener("visibilitychange", handleVisibilityChange, false);
+  document.addEventListener("stopclock", alertUser);
   handleVisibilityChange()
 }
 
