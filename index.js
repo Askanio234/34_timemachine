@@ -119,7 +119,7 @@ function alertUser(){
   setInterval(function() {
     var randomQuote = QUOTES[Math.floor(Math.random()*QUOTES.length)]
     window.alert(randomQuote)
-  }, 5000)
+  }, 30000)
 }
 
   // https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
