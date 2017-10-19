@@ -127,7 +127,9 @@ function main(){
 function alertUser(){
   setInterval(function() {
     var randomQuote = QUOTES[Math.floor(Math.random()*QUOTES.length)]
-    window.alert(randomQuote)
+    if (!document.hidden) {
+      window.alert(randomQuote)
+    }
   }, 30000)
 }
 
