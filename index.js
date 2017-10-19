@@ -1,6 +1,6 @@
 var TIMEOUT_IN_SECS = 3 * 60
 var TEMPLATE = '<h1><span class="js-timer-minutes">00</span>:<span class="js-timer-seconds">00</span></h1>'
-var STYLES = "height: auto; position: fixed; top: 25px; left: 25px; z-index: 1; border: solid black 1px; color: red; background-color: azure;"
+var STYLES = "height: auto; position: fixed; top: 15px; left: 25px; z-index: 99; border: solid black 1px; color: #5787af; background-color: #e0f6ff; border-radius: 30%; padding: 0 10px; margin: 10px 10px;"
 
 var QUOTES = [
   "Success is no accident. It is hard work, perseverance, learning, studying, sacrifice and most of all, love of what you are doing or learning to do.",
