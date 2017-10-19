@@ -1,12 +1,21 @@
 var TIMEOUT_IN_SECS = 3 * 60
 var TEMPLATE = '<h1><span class="js-timer-minutes">00</span>:<span class="js-timer-seconds">00</span></h1>'
-var STYLES = "height: auto; position: fixed; top: 15px; left: 25px; z-index: 99; border: solid black 1px; color: #5787af; background-color: #e0f6ff; border-radius: 30%; padding: 0 10px; margin: 10px 10px;"
+var STYLES = `height: auto; position: fixed; top: 15px; left: 25px; \
+z-index: 99; border: solid black 1px; color: #5787af; \
+background-color: #e0f6ff; border-radius: 30%; \
+padding: 0 10px; margin: 10px 10px;`
 
 var QUOTES = [
-  "Success is no accident. It is hard work, perseverance, learning, studying, sacrifice and most of all, love of what you are doing or learning to do.",
-  "A dream doesn't become reality through magic; it takes sweat, determination and hard work.",
-  "Work like you don't need the money. Love like you've never been hurt. Dance like nobody's watching.",
-  "Success isn't always about greatness. It's about consistency. Consistent hard work leads to success. Greatness will come."
+  `Success is no accident. It is hard work, perseverance, learning, \
+studying, sacrifice and most of all, love of what you are doing or learning to do.`,
+  `A dream doesn't become reality through magic; \
+it takes sweat, determination and hard work.`,
+  `Work like you don't need the money. \
+Love like you've never been hurt. \
+Dance like nobody's watching.`,
+  `Success isn't always about greatness. \
+It's about consistency. Consistent hard work leads to success. \
+Greatness will come.`
 ]
 
 function padZero(number){
