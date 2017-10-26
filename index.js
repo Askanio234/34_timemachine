@@ -1,4 +1,5 @@
 var TIMEOUT_IN_SECS = 3 * 60
+var SECOND_TIMEOUT_IN_SECS = 30
 var TEMPLATE = '<h1><span class="js-timer-minutes">00</span>:<span class="js-timer-seconds">00</span></h1>'
 var STYLES = `height: auto; position: fixed; top: 15px; left: 25px; \
 z-index: 99; border: solid black 1px; color: #5787af; \
@@ -104,6 +105,8 @@ function main(){
   var intervalId = null
   var stopClockEvent = new Event("stopclock")
   var isStopClockFired = false
+  var second_timer = null
+  var secondIntervalId = null
 
   timerWiget.mount(document.body)
 
@@ -116,29 +119,45 @@ function main(){
     }
   }
 
-  function handleVisibilityChange(){
-    if (document.hidden) {
-      timer.stop()
-      clearInterval(intervalId)
-      intervalId = null
-    } else {
-      timer.start()
-      intervalId = intervalId || setInterval(handleIntervalTick, 300)
+  function handleSecondIntervalTick() {
+    if(second_timer){
+      var secsLeftSecondTimer = second_timer.calculateSecsLeft()
+      if (secsLeftSecondTimer === 0) {
+        var randomQuote = QUOTES[Math.floor(Math.random()*QUOTES.length)]
+        window.alert(randomQuote)
+        second_timer.reset()
+        second_timer.start()
+      }
     }
   }
 
-function alertUser(){
-  setInterval(function() {
-    var randomQuote = QUOTES[Math.floor(Math.random()*QUOTES.length)]
-    if (!document.hidden) {
-      window.alert(randomQuote)
+  function handleVisibilityChange(){
+    if (document.hidden) {
+      timer.stop()
+      second_timer.stop()
+      clearInterval(intervalId)
+      clearInterval(secondIntervalId)
+      intervalId = null
+      secondIntervalId = null
+    } else {
+      timer.start()
+      if (isStopClockFired){
+        second_timer.start()
+      }
+      intervalId = intervalId || setInterval(handleIntervalTick, 300)
+      secondIntervalId = secondIntervalId || setInterval(handleSecondIntervalTick, 300)
     }
-  }, 30000)
-}
+  }
+
+  function startSecondClock(){
+    second_timer = new Timer(SECOND_TIMEOUT_IN_SECS)
+    second_timer.start()
+  }
+
 
   // https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
   document.addEventListener("visibilitychange", handleVisibilityChange, false);
-  document.addEventListener("stopclock", alertUser);
+  document.addEventListener("stopclock", startSecondClock);
   handleVisibilityChange()
 }
 
